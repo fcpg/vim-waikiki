@@ -1,0 +1,304 @@
+*waikiki.txt*                Fisherman's Wiki                           *waikiki*
+
+                            Waikiki MANUAL
+
+1. About waikiki                                   |waikiki-about|
+2. Quick Start                                     |waikiki-quickstart|
+3. Default Mappings                                |waikiki-default-mappings|
+4. Plug Mappings                                   |waikiki-plug-mappings|
+5. Commands                                        |waikiki-commands|
+6. Options                                         |waikiki-options|
+6. Events                                          |waikiki-events|
+7. Configuration Example                           |waikiki-example|
+8. Changelog                                       |waikiki-changelog|
+9. Contribute                                      |waikiki-contribute|
+A. License                                         |waikiki-license|
+
+=============================================================================
+ABOUT WAIKIKI                                                   *waikiki-about*
+
+Waikiki provides a minimal set of common features for maintaining a wiki:
+
+  - Navigation
+  - Link/Page Creation
+  - Todo lists
+  - Tags
+
+Syntax/Formatting is left to third-parties; Markdown is assumed by default,
+but it should be entirely configurable.
+
+|filetype| is not modified by waikiki; instead, buffer-local mappings are added
+when editing files under locations defined as 'wiki roots', and/or matching
+some patterns.
+
+For navigation, links are expected to point at file names, or to directory
+names containing an index file (eg. "index.md", cf. |g:waikiki_index|).
+Eg.
+
+  in Foo.md:
+>
+  This is a link: [MyBar](bar)
+<
+This can point at a file "./bar", or "./bar.md", or "./bar/index.md"
+Lookup order can be configured (cf. |g:waikiki_lookup_order|), as well as
+location for new files (|g:waikiki_create_type|). You can also manually
+insert the link syntax and set the url part to what you want, eg. for special
+cases; Waikiki will then create the path/file when following the link.
+
+=============================================================================
+QUICK START                                                *waikiki-quickstart*
+
+1. Install the plugin Eg. with Pathogen:
+>
+   cd ~/.vim/bundle && git clone https://github.com/fcpg/vim-waikiki
+<
+   or using vim8 package management:
+>
+   cd ~/.vim/pack/std/start && git clone https://github.com/fcpg/vim-waikiki
+<
+2. Set |g:waikiki_roots| in vimrc Eg.:
+>
+   let g:waikiki_roots = ['~/vimwiki/']
+<
+
+3. Set |g:waikiki_default_maps| in vimrc to activate default maps:
+>
+   let maplocalleader = "\<F7>"
+   let g:waikiki_default_maps = 1
+<
+4. Edit wiki files in your wiki root, using the default maps described
+   below.
+
+=============================================================================
+DEFAULT MAPPINGS                                     *waikiki-default-mappings*
+
+<LocalLeader><Return>
+  Open link under cursor into current window.
+
+<LocalLeader>s
+  Open link under cursor into split window.
+
+<LocalLeader>v
+  Open link under cursor into vertical split window.
+
+<LocalLeader>u
+  Open file "higher in hierarchy" into current window.
+
+<LocalLeader>n
+  Move cursor to next link in buffer.
+
+<LocalLeader>p
+  Move cursor to previous link in buffer.
+
+<LocalLeader><Space>
+  Toggle state of checkbox on current line.
+  A checkbox is pair of brackets '[ ]' with a space or an 'X' inside it,
+  indicating item is still to be done or is completed.
+
+<LocalLeader>T
+  Generate tags.
+  By default, tags are series of words within colon pairs, on a line
+  of their own, similar to vimwiki. Eg.:
+>
+    :tag1:tag2:tag3:
+<
+  Tag format is configurable with the |g:waikiki_tag_regex| option.
+
+=============================================================================
+PLUG MAPPINGS                                           *waikiki-plug-mappings*
+
+<Plug>(WaikikiFollowLink)
+<Plug>(WaikikiFollowLinkSplit)
+<Plug>(WaikikiFollowLinkVSplit)
+  Open link under cursor into current/split/vsplit window.
+
+<Plug>(WaikikiGoUp)
+<Plug>(WaikikiGoUpSplit)
+<Plug>(WaikikiGoUpVSplit)
+  Open file "higher in hierarchy" into current/split/vsplit window.
+
+<Plug>(WaikikiPrevLink)
+<Plug>(WaikikiNextLink)
+  Move cursor to previous/next link in buffer.
+
+<Plug>(WaikikiToggleListItem)
+  Toggle state of checkbox on current line.
+  Cf. `<LocalLeader><Space>`
+
+<Plug>(WaikikiTags)
+  Generate tags.
+  Cf. `<LocalLeader>T`
+
+=============================================================================
+COMMANDS                                                     *waikiki-commands*
+
+:WaikikiTags [dir]                                               *:WaikikiTags*
+  Generate tags file in given dir, or in wiki root if no argument
+  is provided.
+  In case there is no configured root, fall back on current working dir.
+
+=============================================================================
+OPTIONS                                                       *waikiki-options*
+
+g:waikiki_roots                                               *g:waikiki_roots*
+  List of directories containing wiki.
+  Buffers for files under a wiki root will have local mappings set,
+  and tags will be created under the root if not set otherwise.
+  Default: []
+
+g:waikiki_patterns                                         *g:waikiki_patterns*
+  List of regexes matching wiki files.
+  Set buffer local mappings, like |g:waikiki_roots| does.
+  Default: []
+
+g:waikiki_ext                                                   *g:waikiki_ext*
+  Extension of wiki files.
+  Default: .md
+
+g:waikiki_index                                               *g:waikiki_index*
+  Name of index files.
+  Default: index.md
+
+g:waikiki_follow_action                               *g:waikiki_follow_action*
+  Default action when following links.
+  Default: edit
+
+g:waikiki_create_action                               *g:waikiki_create_action*
+  Default action when creating new links.
+  Default: edit
+
+g:waikiki_mkdir_prompt                                 *g:waikiki_mkdir_prompt*
+  Set to 1 to get a confirmation prompt before creating dirs.
+  Default: 0
+
+g:waikiki_ask_if_noindex                             *g:waikiki_ask_if_noindex*
+  Set to 1 to get a menu with dir content when going up in a directory
+  with no index file. Ignore dir and keep searching upwards if 0.
+  Default: 0
+
+g:waikiki_todo                                                 *g:waikiki_todo*
+  Character indicating that a todo list item is still to be done.
+  Default: <Space>
+
+g:waikiki_done                                                 *g:waikiki_done*
+  Character indicating that a todo list item is completed.
+  Default: X
+
+g:waikiki_default_maps                                 *g:waikiki_default_maps*
+  Set to 1 to activate default buffer-local maps.
+  Default: 0
+
+g:waikiki_dirsep                                             *g:waikiki_dirsep*
+  Directory separator.
+  Default: /
+
+g:waikiki_lookup_order                                 *g:waikiki_lookup_order*
+  List of location to look up when searching upwards.
+  The default first tries the link as is, then it tries adding the 
+  configured extension, and finally it tries looking for an index file
+  in a subdir with that name.
+  Those are all the recognized options; you can reorder them
+  or delete some.
+  Default: ["raw", "ext", "subdir"]
+
+g:waikiki_create_type                                   *g:waikiki_create_type*
+  Set the type of file when creating new links.
+  Can be one of "raw", "ext" or "subdir" (Cf. |g:waikiki_lookup_order|).
+  Set to empty string to be prompted with a menu.
+  Default: ext
+
+g:waikiki_link_regex                                     *g:waikiki_link_regex*
+  Regex used to lookup prev/next link in current buffer.
+  Default: regex matching markdown link (check source for details)
+
+g:waikiki_link_url_regex                             *g:waikiki_link_url_regex*
+  Regex used to extract the url part from wiki links.
+  Default: regex matching markdown link (check source for details)
+
+g:waikiki_tag_regex                                       *g:waikiki_tag_regex*
+  Regex used to tell ctags what wiki tags look like.
+  Default: regex matching :tag:tag:... lines (check source for details)
+
+g:waikiki_link_fmt                                         *g:waikiki_link_fmt*
+  Printf pattern used to insert link code when creating new links.
+  Note: takes three parameters, "name, link, name", so one of them should
+  have length zero "%.0s" to be ignored. This is a hack to replace
+  positional printf parameters (eg. "%2$"), not implemented in
+  vim's printf.
+  Default: [%s](%s)%.0s
+
+g:waikiki_noauto                                             *g:waikiki_noauto*
+  Set to 1 to deactivate autocommands checking if buffer should get
+  waikiki settings. User should then set them by other means, eg. in
+  some after/ftplugin file.
+  Default: 0
+
+g:waikiki_conceal_markdown_url                 *g:waikiki_conceal_markdown_url*
+  Set to 0 to always show url in markdown links
+  Default: 1
+
+=============================================================================
+EVENTS                                                         *waikiki-events*
+
+A 'Waikiki#User#setup' event is triggered when a buffer is set up for
+waikiki. This lets users add extra configuration if needed.
+
+=============================================================================
+CONFIGURATION EXAMPLE                                         *waikiki-example*
+
+In .vim/after/ftplugin/markdown.vim:
+>
+  if !get(g:, 'mywaikikisetup_loaded', 0)
+    call mywaikiki#Load()
+    let g:mywaikikisetup_loaded = 1
+  endif
+<
+In .vim/autoload/mywaikiki.vim:
+>
+  let g:waikiki_wiki_roots    = ['~/vimwiki']
+  let g:waikiki_wiki_patterns = ['/wiki/']
+  let g:waikiki_default_maps  = 1
+
+  " mywaikiki#Load {{{1
+  function! mywaikiki#Load() abort
+    if !get(g:, 'waikiki_loaded', 0)
+      packadd vim-waikiki
+      call waikiki#CheckBuffer(expand('%:p'))
+    endif
+  endfun
+
+  " mywaikiki#SetupBuffer {{{1
+  function! mywaikiki#SetupBuffer() abort
+    nmap  <buffer>  zl                    <Plug>(waikikiFollowLink)
+    nmap  <buffer>  zh                    <Plug>(waikikiGoUp)
+    xn    <buffer>  <LocalLeader>c        <Esc>m`g'<O```<Esc>g'>o```<Esc>``
+    nmap  <buffer><silent> <LocalLeader>i :let &l:cocu = (&l:cocu==""
+                                           \ ? "n" : "")<cr>
+    setl sw=2
+    setl cole=2
+  endfun
+
+  " augroup Waikiki {{{1
+  augroup Waikiki
+    au!
+    autocmd User setup
+          \ call mywaikiki#SetupBuffer()
+  augroup END
+<
+=============================================================================
+CHANGELOG                                                   *waikiki-changelog*
+
+[1.0] - 2018-07-20
+  - Initial release
+
+=============================================================================
+CONTRIBUTE                                                 *waikiki-contribute*
+
+Contribute on [Github](https://github.com/fcpg/vim-waikiki)
+
+=============================================================================
+LICENSE                                                       *waikiki-license*
+
+[Attribution-ShareAlike 4.0 Int.](https://creativecommons.org/licenses/by-sa/4.0/)
+
+ vim: set expandtab sts=2 ts=2 sw=2 tw=78 ft=help norl:
