@@ -107,25 +107,25 @@ DEFAULT MAPPINGS                                     *waikiki-default-mappings*
 =============================================================================
 PLUG MAPPINGS                                           *waikiki-plug-mappings*
 
-<Plug>(WaikikiFollowLink)
-<Plug>(WaikikiFollowLinkSplit)
-<Plug>(WaikikiFollowLinkVSplit)
+<Plug>(waikikiFollowLink)
+<Plug>(waikikiFollowLinkSplit)
+<Plug>(waikikiFollowLinkVSplit)
   Open link under cursor into current/split/vsplit window.
 
-<Plug>(WaikikiGoUp)
-<Plug>(WaikikiGoUpSplit)
-<Plug>(WaikikiGoUpVSplit)
+<Plug>(waikikiGoUp)
+<Plug>(waikikiGoUpSplit)
+<Plug>(waikikiGoUpVSplit)
   Open file "higher in hierarchy" into current/split/vsplit window.
 
-<Plug>(WaikikiPrevLink)
-<Plug>(WaikikiNextLink)
+<Plug>(waikikiPrevLink)
+<Plug>(waikikiNextLink)
   Move cursor to previous/next link in buffer.
 
-<Plug>(WaikikiToggleListItem)
+<Plug>(waikikiToggleListItem)
   Toggle state of checkbox on current line.
   Cf. `<LocalLeader><Space>`
 
-<Plug>(WaikikiTags)
+<Plug>(waikikiTags)
   Generate tags.
   Cf. `<LocalLeader>T`
 
