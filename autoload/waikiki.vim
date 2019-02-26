@@ -174,9 +174,10 @@ function! waikiki#FollowLink(...) abort
       endif
       let target = s:PromptForTarget(targetlist)
     endif
-    let finaltarget = s:JoinPath(curpath, target)
+    let nospacetarget = substitute(target, ' ', '', 'g')
+    let finaltarget = s:JoinPath(curpath, nospacetarget)
     if curlink == ""
-      call s:InsertLinkCode(name, target)
+      call s:InsertLinkCode(name, nospacetarget)
     endif
   endif
 
