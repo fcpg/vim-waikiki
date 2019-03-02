@@ -237,6 +237,10 @@ g:waikiki_conceal_markdown_url                 *g:waikiki_conceal_markdown_url*
   Set to 0 to always show url in markdown links
   Default: 1
 
+g:waikiki_space_replacement                       *g:waikiki_space_replacement*
+  String that will replace spaces when creating page slugs.
+  Default: _
+
 =============================================================================
 EVENTS                                                         *waikiki-events*
 
@@ -290,6 +294,8 @@ CHANGELOG                                                   *waikiki-changelog*
 
 [1.0] - 2018-07-20
   - Initial release
+[1.0.1] - 2019-03-02
+  - Handling spaces in page names (merge from @BonaBeavis, +added option)
 
 =============================================================================
 CONTRIBUTE                                                 *waikiki-contribute*
