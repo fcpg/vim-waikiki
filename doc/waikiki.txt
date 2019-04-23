@@ -304,6 +304,8 @@ CHANGELOG                                                   *waikiki-changelog*
   - Handling spaces in page names (merge from @BonaBeavis, +added option)
 [1.0.2] - 2019-04-23
   - Add `g:waikiki_roots` and `g:waikiki_patterns` aliases
+  - Creating a link from a word inside brackets `[Foo]` does not add an extra
+    set of brackets for markdown links.
 
 =============================================================================
 CONTRIBUTE                                                 *waikiki-contribute*

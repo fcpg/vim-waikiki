@@ -401,11 +401,14 @@ function! s:InsertLinkCode(name, target) abort
   " TODO: test and improve escaping?
   let escaped_name = escape(a:name, '\*^$')
   let repl_fmt     = get(g:, 'waikiki_link_fmt', '[%s](%s)%.0s')
+  let is_md_link   = (len(repl_fmt) > 4 && repl_fmt[0:3] is '[%s]')
   let replacement  = printf(repl_fmt, a:name, a:target, a:name)
   let line = substitute(getline('.'),
         \ '\%<'.(col('.')+1).'c'.
+        \   (is_md_link ? '\[\?' : '').
         \ escaped_name.
-        \ '\%>'.col('.').'c',
+        \ '\%>'.col('.').'c'.
+        \   (is_md_link ? '\]\?' : ''),
         \ replacement,
         \ '')
   call setline('.', line)
