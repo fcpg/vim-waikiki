@@ -27,8 +27,10 @@ let s:ext    = get(g:, 'waikiki_ext', '.md')
 let s:index  = get(g:, 'waikiki_index', 'index'.s:ext)
 let s:todo   = get(g:, 'waikiki_todo', ' ')
 let s:done   = get(g:, 'waikiki_done', 'X')
-let s:wiki_patterns  = get(g:, 'waikiki_wiki_patterns', [])
-let s:wiki_roots     = get(g:, 'waikiki_wiki_roots',    [])
+let s:wiki_patterns  = get(g:, 'waikiki_wiki_patterns',
+                        \ get(g:, 'waikiki_patterns', []))
+let s:wiki_roots     = get(g:, 'waikiki_wiki_roots',
+                        \ get(g:, 'waikiki_roots', []))
 let s:lookup_order   = get(g:, 'waikiki_lookup_order', ['raw', 'ext', 'subdir'])
 let s:mkdir_prompt   = get(g:, 'waikiki_mkdir_prompt', 0)
 let s:ask_if_noindex = get(g:, 'waikiki_ask_if_noindex', 0)

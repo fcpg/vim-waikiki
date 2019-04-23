@@ -140,16 +140,22 @@ COMMANDS                                                     *waikiki-commands*
 =============================================================================
 OPTIONS                                                       *waikiki-options*
 
-g:waikiki_roots                                               *g:waikiki_roots*
+g:waikiki_wiki_roots                                     *g:waikiki_wiki_roots*
   List of directories containing wiki.
   Buffers for files under a wiki root will have local mappings set,
   and tags will be created under the root if not set otherwise.
   Default: []
 
-g:waikiki_patterns                                         *g:waikiki_patterns*
+g:waikiki_wiki_patterns                               *g:waikiki_wiki_patterns*
   List of regexes matching wiki files.
   Set buffer local mappings, like |g:waikiki_roots| does.
   Default: []
+
+g:waikiki_roots                                               *g:waikiki_roots*
+  Alias for |g:waikiki_wiki_roots|
+
+g:waikiki_patterns                                         *g:waikiki_patterns*
+  Alias for |g:waikiki_wiki_patterns|
 
 g:waikiki_ext                                                   *g:waikiki_ext*
   Extension of wiki files.
@@ -296,6 +302,8 @@ CHANGELOG                                                   *waikiki-changelog*
   - Initial release
 [1.0.1] - 2019-03-02
   - Handling spaces in page names (merge from @BonaBeavis, +added option)
+[1.0.2] - 2019-04-23
+  - Add `g:waikiki_roots` and `g:waikiki_patterns` aliases
 
 =============================================================================
 CONTRIBUTE                                                 *waikiki-contribute*
