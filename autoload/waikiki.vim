@@ -284,13 +284,29 @@ endfun
 " waikiki#Tags {{{2
 " Arg: dir where to save tags file
 function! waikiki#Tags(...) abort
-  let regex = get(g:, 'waikiki_tag_regex',
-        \ '/^[ \t]*(:[a-zA-Z0-9_]+)*:([a-zA-Z0-9_]+)/\2/t,tag/i')
+  let regex1 = get(g:, 'waikiki_tag_regex1',
+        \ '/^[ \t]*:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+  let regex2 = get(g:, 'waikiki_tag_regex2',
+        \ '/^[ \t]*:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+  let regex3 = get(g:, 'waikiki_tag_regex3',
+        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+  let regex4 = get(g:, 'waikiki_tag_regex4',
+        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+  let regex5 = get(g:, 'waikiki_tag_regex5',
+        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+  let regex6 = get(g:, 'waikiki_tag_regex6',
+        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+
   let ctags_cmd = join([
         \ 'ctags',
         \ '--langdef=waikiki',
         \ '--langmap=waikiki:'.s:ext,
-        \ '--regex-waikiki='''.regex.'''',
+        \ '--regex-waikiki='''.regex1.'''',
+        \ '--regex-waikiki='''.regex2.'''',
+        \ '--regex-waikiki='''.regex3.'''',
+        \ '--regex-waikiki='''.regex4.'''',
+        \ '--regex-waikiki='''.regex5.'''',
+        \ '--regex-waikiki='''.regex6.'''',
         \ '--recurse',
         \ '--waikiki-kinds=t',
         \ '.',
