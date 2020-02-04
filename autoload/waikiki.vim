@@ -284,18 +284,23 @@ endfun
 " waikiki#Tags {{{2
 " Arg: dir where to save tags file
 function! waikiki#Tags(...) abort
-  let regex1 = get(g:, 'waikiki_tag_regex1',
-        \ '/^[ \t]*:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
-  let regex2 = get(g:, 'waikiki_tag_regex2',
-        \ '/^[ \t]*:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
-  let regex3 = get(g:, 'waikiki_tag_regex3',
-        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
-  let regex4 = get(g:, 'waikiki_tag_regex4',
-        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
-  let regex5 = get(g:, 'waikiki_tag_regex5',
-        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
-  let regex6 = get(g:, 'waikiki_tag_regex6',
-        \ '/^[ \t]*:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:[a-zA-Z0-9_]+:([a-zA-Z0-9_]+):([a-zA-Z0-9_]+:)*[ \t]*$/\1/t,tag/i')
+  let tagstart = get(g:, 'waikiki_tag_start', ':')
+  let tagend   = get(g:, 'waikiki_tag_end', ':')
+  let tag      = '[a-zA-Z0-9_]+'
+  let ttag     = tag.tagend
+  let blanks   = '[ \t]*'
+  let regex1 = printf('/^%s%s(%s)%s(%s)*%s$/\1/t,tag/i',
+        \ blanks, tagstart, tag, tagend, ttag, blanks)
+  let regex2 = printf('/^%s%s%s(%s)%s(%s)*%s$/\1/t,tag/i',
+        \ blanks, tagstart, ttag, tag, tagend, ttag, blanks)
+  let regex3 = printf('/^%s%s%s%s(%s)%s(%s)*%s$/\1/t,tag/i',
+        \ blanks, tagstart, ttag, ttag, tag, tagend, ttag, blanks)
+  let regex4 = printf('/^%s%s%s%s%s(%s)%s(%s)*%s$/\1/t,tag/i',
+        \ blanks, tagstart, ttag, ttag, ttag, tag, tagend, ttag, blanks)
+  let regex5 = printf('/^%s%s%s%s%s%s(%s)%s(%s)*%s$/\1/t,tag/i',
+        \ blanks, tagstart, ttag, ttag, ttag, ttag, tag, tagend, ttag, blanks)
+  let regex6 = printf('/^%s%s%s%s%s%s%s(%s)%s(%s)*%s$/\1/t,tag/i',
+        \ blanks, tagstart, ttag, ttag, ttag, ttag, ttag, tag, tagend, ttag, blanks)
 
   let ctags_cmd = join([
         \ 'ctags',

@@ -102,7 +102,8 @@ DEFAULT MAPPINGS                                     *waikiki-default-mappings*
 >
     :tag1:tag2:tag3:
 <
-  Tag format is configurable with the |g:waikiki_tag_regex| option.
+  Tag format is configurable with the |g:waikiki_tag_start| and
+  |g:waikiki_tag_start| option.
 
 =============================================================================
 PLUG MAPPINGS                                           *waikiki-plug-mappings*
@@ -191,7 +192,7 @@ g:waikiki_done                                                 *g:waikiki_done*
   Default: X
 
 g:waikiki_default_maps                                 *g:waikiki_default_maps*
-  Set to 1 to activate default buffer-local maps.
+  &Set to 1 to activate default buffer-local maps.
   Default: 0
 
 g:waikiki_dirsep                                             *g:waikiki_dirsep*
@@ -221,9 +222,15 @@ g:waikiki_link_url_regex                             *g:waikiki_link_url_regex*
   Regex used to extract the url part from wiki links.
   Default: regex matching markdown link (check source for details)
 
-g:waikiki_tag_regex                                       *g:waikiki_tag_regex*
-  Regex used to tell ctags what wiki tags look like.
-  Default: regex matching :tag:tag:... lines (check source for details)
+g:waikiki_tag_start                                       *g:waikiki_tag_start*
+  Part of the regex used to tell ctags what wiki tags look like.
+  This is the start of a tag list: `:foo:bar:baz:`
+  Default: colon
+
+g:waikiki_tag_end                                           *g:waikiki_tag_end*
+  Part of the regex used to tell ctags what wiki tags look like.
+  This is the end of a tag (and also the start of the next one, if many).
+  Default: colon
 
 g:waikiki_link_fmt                                         *g:waikiki_link_fmt*
   Printf pattern used to insert link code when creating new links.
@@ -306,6 +313,10 @@ CHANGELOG                                                   *waikiki-changelog*
   - Add `g:waikiki_roots` and `g:waikiki_patterns` aliases
   - Creating a link from a word inside brackets `[Foo]` does not add an extra
     set of brackets for markdown links.
+[1.0.3] - 2020-02-04
+  - Fix tags
+  - Add `waikiki_tag_start` and `waikiki_tag_end` options
+  - Remove `waikiki_tag_regex`
 
 =============================================================================
 CONTRIBUTE                                                 *waikiki-contribute*
