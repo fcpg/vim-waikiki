@@ -306,6 +306,7 @@ function! waikiki#Tags(...) abort
         \ 'ctags',
         \ '--langdef=waikiki',
         \ '--langmap=waikiki:'.s:ext,
+        \ '--languages=waikiki',
         \ '--regex-waikiki='''.regex1.'''',
         \ '--regex-waikiki='''.regex2.'''',
         \ '--regex-waikiki='''.regex3.'''',
