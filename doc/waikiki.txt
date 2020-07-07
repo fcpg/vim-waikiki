@@ -192,7 +192,7 @@ g:waikiki_done                                                 *g:waikiki_done*
   Default: X
 
 g:waikiki_default_maps                                 *g:waikiki_default_maps*
-  &Set to 1 to activate default buffer-local maps.
+  Set to 1 to activate default buffer-local maps.
   Default: 0
 
 g:waikiki_dirsep                                             *g:waikiki_dirsep*
