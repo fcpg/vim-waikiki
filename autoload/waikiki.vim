@@ -173,7 +173,7 @@ function! waikiki#FollowLink(...) abort
       let targetdict = s:GetPossibleTargetsDict(targetbase)
       let target = get(targetdict, s:create_type, targetdict['raw'])
     else
-      if targetlist == ''
+      if empty(targetlist)
         let targetlist = s:GetPossibleTargetsOrderedList(targetbase)
       endif
       let target = s:PromptForTarget(targetlist)
