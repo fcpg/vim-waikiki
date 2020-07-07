@@ -173,9 +173,7 @@ function! waikiki#FollowLink(...) abort
       let targetdict = s:GetPossibleTargetsDict(targetbase)
       let target = get(targetdict, s:create_type, targetdict['raw'])
     else
-      if targetlist == ''
-        let targetlist = s:GetPossibleTargetsOrderedList(targetbase)
-      endif
+      let targetlist = s:GetPossibleTargetsOrderedList(targetbase)
       let target = s:PromptForTarget(targetlist)
     endif
     let nospacetarget = substitute(target, ' ', s:space_replacement, 'g')
