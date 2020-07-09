@@ -222,6 +222,14 @@ g:waikiki_link_url_regex                             *g:waikiki_link_url_regex*
   Regex used to extract the url part from wiki links.
   Default: regex matching markdown link (check source for details)
 
+g:waikiki_use_word_regex                             *g:waikiki_use_word_regex*
+  Use a regex to find the word under the cursor (use |<cword>| otherwise).
+  Default: 0
+
+g:waikiki_use_regex                                      *g:waikiki_word_regex*
+  Regex used to find the word under the cursor, when creating a new page.
+  Default: [-+0-9A-Za-z_]*
+
 g:waikiki_tag_start                                       *g:waikiki_tag_start*
   Part of the regex used to tell ctags what wiki tags look like.
   This is the start of a tag list: `:foo:bar:baz:`
@@ -317,6 +325,8 @@ CHANGELOG                                                   *waikiki-changelog*
   - Fix tags
   - Add `waikiki_tag_start` and `waikiki_tag_end` options
   - Remove `waikiki_tag_regex`
+[1.0.4] - 2020-07-09
+  - Add `g:waikiki_use_word_regex` and `g:waikiki_word_regex` options
 
 =============================================================================
 CONTRIBUTE                                                 *waikiki-contribute*

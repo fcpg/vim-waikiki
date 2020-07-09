@@ -117,12 +117,28 @@ function! waikiki#GetCurrentLink() abort
   return link
 endfun
 
+" waikiki#GetCurrentWord {{{2
+function! waikiki#GetCurrentWord() abort
+  let word_regex = get(g:, 'waikiki_word_regex',
+        \ '[-+0-9A-Za-z_]\+' )
+  let line = getline('.')
+  let word = matchstr(line,
+        \ '\%<'.(col('.')+1).'c'.
+        \ word_regex.
+        \ '\%>'.col('.').'c')
+  "call <Sid>Dbg("Current word:", link)
+  return word
+endfun
+
 " waikiki#FollowLink {{{2
 function! waikiki#FollowLink(...) abort
   let options = a:0 ? a:1 : {}
   let follow  = get(options, 'action', s:follow)
   let create  = get(options, 'create', s:create)
-  let name    = get(options, 'name', expand('<cword>'))
+  let name    = get(options, 'name',
+                  \ get(g:, 'waikiki_use_word_regex', 0)
+                  \   ? waikiki#GetCurrentWord()
+                  \   : expand('<cword>'))
   let curlink = get(options, 'link', waikiki#GetCurrentLink())
   let curpath = expand('%:p:h')
   let targetlist  = []
