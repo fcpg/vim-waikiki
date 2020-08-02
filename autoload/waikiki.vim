@@ -35,7 +35,7 @@ let s:lookup_order   = get(g:, 'waikiki_lookup_order', ['raw', 'ext', 'subdir'])
 let s:mkdir_prompt   = get(g:, 'waikiki_mkdir_prompt', 0)
 let s:ask_if_noindex = get(g:, 'waikiki_ask_if_noindex', 0)
 let s:create_type    = get(g:, 'waikiki_create_type', 'ext')
-let s:space_replacement = get(g:, 'waikiki_space_replacement', '_')
+let s:space_replacement = get(g:, 'waikiki_space_replacement', '\\ ')
 
 
 "-----------------------
