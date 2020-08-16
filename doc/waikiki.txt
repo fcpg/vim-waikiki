@@ -262,6 +262,31 @@ g:waikiki_space_replacement                       *g:waikiki_space_replacement*
   String that will replace spaces when creating page slugs.
   Default: _
 
+g:waikiki_targetsdict_func                         *g:waikiki_targetsdict_func*
+  Name of a function that will return a dict with extra link targets,
+  in addition to the default ones ("raw", "ext", "subdir").
+  If set, it is necessary to define |g:waikiki_lookup_order| to take it
+  into account. See also |g:waikiki_create_type|.
+  Cf. below for an example.
+  Default: none
+
+Example:
+>
+  let g:waikiki_targetsdict_func = 'mywaikiki#TargetsDict'
+
+  function! mywaikiki#TargetsDict(name) abort
+    let ret = {}
+    let ts_name = strftime('%Y-%m-%dT%H:%M').'_'.a:name
+    if strridx(ts_name, '.md') != len(ts_name) - 3
+      let ts_name .= '.md'
+    endif
+    let ret['ts'] = ts_name
+    return ret
+  endfun
+  let g:waikiki_lookup_order = ['raw', 'ext', 'subdir', 'ts']
+  let g:waikiki_create_type = 'ts'
+<
+
 =============================================================================
 EVENTS                                                         *waikiki-events*
 
@@ -327,6 +352,8 @@ CHANGELOG                                                   *waikiki-changelog*
   - Remove `waikiki_tag_regex`
 [1.0.4] - 2020-07-09
   - Add `g:waikiki_use_word_regex` and `g:waikiki_word_regex` options
+[1.0.5] - 2020-08-16
+  - Add `g:waikiki_targetsdict_func` option
 
 =============================================================================
 CONTRIBUTE                                                 *waikiki-contribute*

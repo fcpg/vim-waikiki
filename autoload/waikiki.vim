@@ -353,8 +353,9 @@ endfun
 
 " s:GetPossibleTargetsDict {{{2
 function! s:GetPossibleTargetsDict(target) abort
+  let targetsdict_func = get(g:, 'waikiki_targetsdict_func', '')
   let target_info = s:GetTargetInfo(a:target)
-  let ret = {}
+  let ret = targetsdict_func != '' ? function(targetsdict_func)(a:target) : {}
   let ret['raw']    = a:target
   let ret['ext']    = a:target . (target_info['has_ext'] ? '' : s:ext)
   let ret['subdir'] = a:target . s:dirsep . s:index
