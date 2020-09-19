@@ -103,7 +103,7 @@ DEFAULT MAPPINGS                                     *waikiki-default-mappings*
     :tag1:tag2:tag3:
 <
   Tag format is configurable with the |g:waikiki_tag_start| and
-  |g:waikiki_tag_start| option.
+  |g:waikiki_tag_end| option.
 
 =============================================================================
 PLUG MAPPINGS                                           *waikiki-plug-mappings*
