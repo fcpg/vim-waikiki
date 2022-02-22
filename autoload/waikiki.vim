@@ -36,6 +36,7 @@ let s:mkdir_prompt   = get(g:, 'waikiki_mkdir_prompt', 0)
 let s:ask_if_noindex = get(g:, 'waikiki_ask_if_noindex', 0)
 let s:create_type    = get(g:, 'waikiki_create_type', 'ext')
 let s:space_replacement = get(g:, 'waikiki_space_replacement', '_')
+let s:random_filenames = get(g:, 'waikiki_random_filenames', 0)
 
 
 "-----------------------
@@ -194,7 +195,11 @@ function! waikiki#FollowLink(...) abort
       endif
       let target = s:PromptForTarget(targetlist)
     endif
-    let nospacetarget = substitute(target, ' ', s:space_replacement, 'g')
+    if s:random_filenames
+      let nospacetarget = system('tr -dc A-Za-z0-9 </dev/urandom | head -c 5')
+    else
+      let nospacetarget = substitute(target, ' ', s:space_replacement, 'g')
+    endif
     let finaltarget = s:JoinPath(curpath, nospacetarget)
     "call <Sid>Dbg("nospacetarget, finaltarget:", nospacetarget, finaltarget)
     if curlink == ""
@@ -203,7 +208,11 @@ function! waikiki#FollowLink(...) abort
   endif
 
   call s:EnsurePathExists(finaltarget)
-  exe create finaltarget
+  if s:random_filenames
+      exe create finaltarget.s:ext
+  else
+      exe create finaltarget
+  endif
 endfun
 
 " waikiki#GoUp {{{2

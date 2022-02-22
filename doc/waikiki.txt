@@ -270,6 +270,11 @@ g:waikiki_targetsdict_func                         *g:waikiki_targetsdict_func*
   Cf. below for an example.
   Default: none
 
+g:waikiki_random_filenames
+ Set to 1 to generate a random filename instead of generating the filename
+ based on the current word/highlight.
+ Default: 0
+
 Example:
 >
   let g:waikiki_targetsdict_func = 'mywaikiki#TargetsDict'
